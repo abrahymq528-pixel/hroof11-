@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>الإعدادات - حروف مع ديجيز</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background-color: #1a1a2e;
+      color: white;
+    }
+    .settings-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .settings-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 400px;
+      background: rgba(15, 52, 96, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .settings-container h2 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #f0a500;
+    }
+    .settings-container label {
+      font-weight: bold;
+      margin-bottom: -10px;
+      color: #ccc;
+    }
+    .settings-container input,
+    .settings-container select {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+      background: white;
+      color: #333;
+    }
+    .settings-container button {
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      background: #e94560;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .settings-container button:hover {
+      background: #c23152;
+    }
+    .settings-container .start-btn {
+      background: #27ae60;
+    }
+    .settings-container .start-btn:hover {
+      background: #1e8449;
+    }
+    .settings-container .stop-btn {
+      background: #e67e22;
+    }
+    .settings-container .stop-btn:hover {
+      background: #d35400;
+    }
+  </style>
+</head>
+<body>
+  <div class="settings-wrapper">
+    <div class="settings-container">
+      <h2>الإعدادات</h2>
+      
+      <label>اسم المسابقة</label>
+      <input type="text" id="comp-name">
+      
+      <label>اسم الفريق الأول</label>
+      <input type="text" id="team1-name">
+      <label>لون الفريق الأول</label>
+      <input type="color" id="team1-color">
+      
+      <label>اسم الفريق الثاني</label>
+      <input type="text" id="team2-name">
+      <label>لون الفريق الثاني</label>
+      <input type="color" id="team2-color">
+      
+      <label>نوع المقدم</label>
+      <select id="host-mode">
+        <option value="auto">آلي</option>
+        <option value="human">بشري</option>
+      </select>
+      
+      <label>تفعيل الجرس</label>
+      <input type="checkbox" id="buzzer-enabled">
+      
+      <label>وقت الإجابة (ثانية)</label>
+      <input type="number" id="answer-time" min="1" max="30">
+      
+      <label>وقت الفرصة الثانية (ثانية)</label>
+      <input type="number" id="second-chance" min="1" max="30">
+      
+      <label>تفعيل الصوت</label>
+      <input type="checkbox" id="sound-enabled" checked>
+      
+      <button onclick="saveSettings()">💾 حفظ الإعدادات</button>
+      <button class="start-btn" onclick="socket.emit('start-game')">▶️ بدء اللعبة</button>
+      <button class="stop-btn" onclick="socket.emit('stop-game')">⏹️ إيقاف اللعبة</button>
+    </div>
+  </div>
+
+  <script>
+    const socket = io();
+    socket.emit('join', 'admin');
+    
+    // استقبال الإعدادات الحالية وتعبئة الحقول
+    socket.on('settings', (settings) => {
+      document.getElementById('comp-name').value = settings.competitionName;
+      document.getElementById('team1-name').value = settings.team1Name;
+      document.getElementById('team1-color').value = settings.team1Color;
+      document.getElementById('team2-name').value = settings.team2Name;
+      document.getElementById('team2-color').value = settings.team2Color;
+      document.getElementById('host-mode').value = settings.hostMode;
+      document.getElementById('buzzer-enabled').checked = settings.buzzerEnabled;
+      document.getElementById('answer-time').value = settings.answerTime;
+      document.getElementById('second-chance').value = settings.secondChanceTime;
+      document.getElementById('sound-enabled').checked = settings.soundEnabled;
+    });
+
+    function saveSettings() {
+      socket.emit('update-settings', {
+        competitionName: document.getElementById('comp-name').value,
+        team1Name: document.getElementById('team1-name').value,
+        team1Color: document.getElementById('team1-color').value,
+        team2Name: document.getElementById('team2-name').value,
+        team2Color: document.getElementById('team2-color').value,
+        hostMode: document.getElementById('host-mode').value,
+        buzzerEnabled: document.getElementById('buzzer-enabled').checked,
+        answerTime: parseInt(document.getElementById('answer-time').value),
+        secondChanceTime: parseInt(document.getElementById('second-chance').value),
+        soundEnabled: document.getElementById('sound-enabled').checked
+      });
+      alert('تم حفظ الإعدادات بنجاح');
+    }
+  </script>
+</body>
+</html>

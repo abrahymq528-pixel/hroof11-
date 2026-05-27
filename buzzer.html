@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>جهاز الجرس - حروف</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&family=Lalezar&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+    body { background-color: #f4f6f9; color: #333; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+
+    .top-header { background-color: #392265; width: 100%; padding: 20px 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; margin-bottom: 30px; }
+    .top-header h1 { font-family: 'Lalezar'; font-size: 32px; color: #ffca28; margin-bottom: 5px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); line-height: 1.2; }
+    .session-badge { background: rgba(255,255,255,0.2); color: white; padding: 5px 20px; border-radius: 50px; font-weight: bold; font-size: 15px; display: inline-block; margin-top: 5px; border: 1px solid rgba(255,255,255,0.3); }
+
+    .card-container { background: white; width: 90%; max-width: 400px; border-radius: 20px; padding: 30px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align: center; }
+
+    .instruction-text { font-size: 18px; font-weight: 800; color: #392265; margin-bottom: 25px; line-height: 1.5; }
+    .input-group { margin-bottom: 20px; text-align: right; }
+    .input-label { display: block; font-weight: bold; color: #555; margin-bottom: 8px; font-size: 14px; }
+    .input-field { width: 100%; background: #f8f9fa; border: 2px solid #e0e0e0; border-radius: 12px; color: #333; padding: 15px; font-size: 16px; font-weight: bold; outline: none; transition: 0.2s; }
+    .input-field:focus { border-color: #392265; background: #fff; }
+
+    .team-selector { display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; }
+    .team-btn { width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 18px; font-weight: 900; cursor: pointer; color: #555; background: white; transition: all 0.2s; }
+    .team-btn.selected { color: white; border-color: transparent; }
+
+    .submit-btn { background: #392265; color: white; font-size: 20px; font-weight: 900; border: none; border-radius: 12px; width: 100%; padding: 15px; cursor: pointer; box-shadow: 0 5px 15px rgba(57, 34, 101, 0.3); transition: 0.2s; }
+    .submit-btn:active { transform: scale(0.97); }
+
+    .player-info-box { display: flex; justify-content: space-between; align-items: center; background: #f8f9fa; padding: 15px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #eee; }
+    .player-name-val { font-weight: 900; font-size: 18px; color: #392265; }
+    .player-team-val { font-weight: bold; font-size: 14px; padding: 5px 12px; border-radius: 8px; color: white; }
+
+    .note-text { font-size: 15px; font-weight: 700; color: #666; line-height: 1.6; margin-bottom: 30px; padding: 0 10px; }
+
+    .buzzer-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 25px; }
+    .buzzer-btn { width: 200px; height: 200px; border-radius: 50%; border: 8px solid #f0f0f0; color: white; font-family: 'Lalezar'; font-size: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.1s ease; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+    .buzzer-btn:active { transform: scale(0.92); border-width: 4px; }
+    .buzzer-btn.locked { background: #e0e0e0 !important; color: #999 !important; border-color: #ccc !important; box-shadow: none !important; pointer-events: none; text-shadow: none; }
+
+    .status-badge { font-size: 18px; font-weight: 900; color: #12b49c; background: rgba(18, 180, 156, 0.1); padding: 8px 20px; border-radius: 50px; margin-top: 20px; border: 1px solid #12b49c; }
+    .status-badge.locked-status { color: #f44336; background: rgba(244, 67, 54, 0.1); border-color: #f44336; }
+    .status-badge.winner-status { color: #ffca28; background: #392265; border-color: #392265; }
+
+    .change-info-link { color: #888; font-weight: bold; cursor: pointer; text-decoration: underline; font-size: 15px; margin-top: 10px; display: inline-block; }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <div class="top-header">
+    <h1 id="bell-title-comp">حروف مع --</h1>
+    <div class="session-badge" id="session-name-display">جلسة رقم: --</div>
+  </div>
+
+  <div class="card-container" id="login-screen">
+    <div class="instruction-text">ادخل اسمك واختر فريقك لتفعيل الجرس!</div>
+    <div class="input-group">
+      <label class="input-label">اسم اللاعب:</label>
+      <input type="text" id="player-name-input" class="input-field" placeholder="اكتب اسمك هنا..." autocomplete="off">
+    </div>
+    <div class="team-selector">
+      <button class="team-btn" id="select-t1-btn" onclick="pickTeam(0)">الفريق الأول</button>
+      <button class="team-btn" id="select-t2-btn" onclick="pickTeam(1)">الفريق الثاني</button>
+    </div>
+    <button class="submit-btn" onclick="enterBuzzerSession()">دخول الجرس</button>
+  </div>
+
+  <div class="card-container hidden" id="buzzer-screen">
+    <div class="player-info-box">
+      <div class="player-name-val" id="lbl-player-name">--</div>
+      <div class="player-team-val" id="lbl-player-team">--</div>
+    </div>
+    <div class="note-text">اضغط فور معرفتك للإجابة.<br>الجرس سيقفل ويفتح تلقائياً حسب الوقت.</div>
+    <div class="buzzer-wrapper">
+      <button class="buzzer-btn" id="buzzer-click-btn" ontouchstart="triggerBuzzerPress()" onmousedown="triggerBuzzerPress()">اضغط !</button>
+      <div class="status-badge" id="buzzer-status-lbl">الجرس جاهز</div>
+    </div>
+    <div class="change-info-link" onclick="backToLoginProfile()">تغيير الاسم والفريق</div>
+  </div>
+
+  <script>
+    const socket = io();
+    const urlParams = new URLSearchParams(window.location.search);
+    const roomID = urlParams.get('room');
+    
+    document.getElementById('session-name-display').textContent = `الجلسة: ${roomID}`;
+    socket.emit('join-room', { roomID: roomID, playerName: 'لاعب' });
+
+    let selectedTeamIndex = null; 
+    let teamNames = ["الفريق الأول", "الفريق الثاني"];
+    let t1Color = '#12b49c'; let t2Color = '#f37021';
+    let localPlayer = { name: '', team: '', color: '' };
+
+    socket.on('settings', (settings) => {
+      document.getElementById('bell-title-comp').textContent = `حروف مع ${settings.competitionName || 'المسابقة'}`;
+      teamNames[0] = settings.team1Name || "الفريق الأول";
+      teamNames[1] = settings.team2Name || "الفريق الثاني";
+      t1Color = settings.team1Color || '#12b49c';
+      t2Color = settings.team2Color || '#f37021';
+
+      document.getElementById('select-t1-btn').textContent = teamNames[0];
+      document.getElementById('select-t2-btn').textContent = teamNames[1];
+      if (selectedTeamIndex !== null) pickTeam(selectedTeamIndex);
+    });
+
+    function pickTeam(index) {
+      selectedTeamIndex = index;
+      const btn1 = document.getElementById('select-t1-btn');
+      const btn2 = document.getElementById('select-t2-btn');
+      btn1.style.background = 'white'; btn1.style.color = '#555'; btn1.style.borderColor = '#e0e0e0';
+      btn2.style.background = 'white'; btn2.style.color = '#555'; btn2.style.borderColor = '#e0e0e0';
+
+      if (index === 0) { btn1.style.background = t1Color; btn1.style.color = 'white'; btn1.style.borderColor = t1Color; } 
+      else { btn2.style.background = t2Color; btn2.style.color = 'white'; btn2.style.borderColor = t2Color; }
+    }
+
+    function enterBuzzerSession() {
+      const name = document.getElementById('player-name-input').value.trim();
+      if (!name) { alert('الرجاء إدخال الاسم قبل الدخول!'); return; }
+      if (selectedTeamIndex === null) { alert('الرجاء اختيار فريقك أولاً!'); return; }
+
+      localPlayer.name = name;
+      localPlayer.team = teamNames[selectedTeamIndex];
+      localPlayer.color = selectedTeamIndex === 0 ? t1Color : t2Color;
+
+      document.getElementById('lbl-player-name').textContent = localPlayer.name;
+      const teamBadge = document.getElementById('lbl-player-team');
+      teamBadge.textContent = localPlayer.team;
+      teamBadge.style.background = localPlayer.color;
+
+      applyBuzzerColor(localPlayer.color);
+      document.getElementById('login-screen').classList.add('hidden');
+      document.getElementById('buzzer-screen').classList.remove('hidden');
+    }
+
+    function applyBuzzerColor(color) {
+      const buzzerBtn = document.getElementById('buzzer-click-btn');
+      buzzerBtn.style.background = `radial-gradient(circle, ${color} 0%, rgba(0,0,0,0.2) 100%)`;
+      buzzerBtn.style.backgroundColor = color;
+      buzzerBtn.style.boxShadow = `0 15px 35px ${color}80, inset 0 -8px 20px rgba(0,0,0,0.2)`;
+    }
+
+    function backToLoginProfile() {
+      document.getElementById('buzzer-screen').classList.add('hidden');
+      document.getElementById('login-screen').classList.remove('hidden');
+    }
+
+    function triggerBuzzerPress() {
+      if (document.getElementById('buzzer-click-btn').classList.contains('locked')) return;
+      socket.emit('press-buzzer', localPlayer);
+    }
+
+    socket.on('game-state', (state) => {
+      const buzzerBtn = document.getElementById('buzzer-click-btn');
+      const statusLbl = document.getElementById('buzzer-status-lbl');
+
+      if (state.buzzerLocked) {
+        buzzerBtn.classList.add('locked');
+        buzzerBtn.style.background = ''; 
+        buzzerBtn.style.boxShadow = 'none';
+
+        if (state.buzzerWinner && state.buzzerWinner.name === localPlayer.name) {
+          statusLbl.textContent = `أنت الأسرع! جاوب ⏱️ ${state.timeLeft}`;
+          statusLbl.className = "status-badge winner-status";
+        } else {
+          statusLbl.textContent = `مغلق! (${state.buzzerWinner ? state.buzzerWinner.name : 'آخر'}) يجاوب`;
+          statusLbl.className = "status-badge locked-status";
+        }
+      } else {
+        buzzerBtn.classList.remove('locked');
+        applyBuzzerColor(localPlayer.color); 
+        statusLbl.textContent = "الجرس جاهز";
+        statusLbl.className = "status-badge";
+      }
+    });
+
+    socket.on('timer-tick', (data) => {
+      const statusLbl = document.getElementById('buzzer-status-lbl');
+      if (document.getElementById('buzzer-click-btn').classList.contains('locked')) {
+        if (data.phase === 'otherTeam') {
+           statusLbl.textContent = `مغلق! وقت الفريق الآخر ⏱️ ${data.timeLeft}`;
+           statusLbl.className = "status-badge locked-status";
+        } else {
+           if (statusLbl.classList.contains('winner-status')) {
+             statusLbl.textContent = `أنت الأسرع! جاوب ⏱️ ${data.timeLeft}`;
+           } else {
+             statusLbl.textContent = `مغلق! يجاوب الآن ⏱️ ${data.timeLeft}`;
+           }
+        }
+      }
+    });
+
+    socket.on('timer-phase-change', (data) => {
+      const statusLbl = document.getElementById('buzzer-status-lbl');
+      statusLbl.textContent = `مغلق! وقت الفريق الآخر ⏱️ ${data.timeLeft}`;
+      statusLbl.className = "status-badge locked-status";
+    });
+
+    socket.on('buzzer-reset', () => {
+      const buzzerBtn = document.getElementById('buzzer-click-btn');
+      const statusLbl = document.getElementById('buzzer-status-lbl');
+      buzzerBtn.classList.remove('locked');
+      if (localPlayer.color) applyBuzzerColor(localPlayer.color);
+      statusLbl.textContent = "الجرس جاهز";
+      statusLbl.className = "status-badge";
+    });
+  </script>
+</body>
+</html>
