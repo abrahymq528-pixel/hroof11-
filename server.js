@@ -9,8 +9,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-// تحديد مجلد public لملفات الواجهة
-app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.get('/host', (req, res) => { res.sendFile(path.join(__dirname, 'public', 'host.html')); });
 app.get('/buzzer', (req, res) => { res.sendFile(path.join(__dirname, 'public', 'buzzer.html')); });
