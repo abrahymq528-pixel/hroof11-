@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>مسابقة حروف - النسخة المطورة</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <script src="/socket.io/socket.io.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Lalezar&display=swap');
     * { box-sizing: border-box; margin: 0; padding: 0; }
     :root { --team1-color: #12b49c; --team2-color: #f37021; --main-purple: #392265; --dark-shadow: #1d0b33; }
-    body { font-family: 'Cairo', sans-serif; background-color: #2b164d; color: white; height: 100vh; overflow: hidden; position: relative; }
+    body { font-family: 'Cairo', sans-serif; background-color: #2b164d; color: white; height: 100vh; overflow-x: hidden; position: relative; }
     
     .floating-options-wrapper { position: absolute; top: 20px; right: 30px; z-index: 50; }
     .options-btn { background-color: white; color: var(--main-purple); font-family: 'Lalezar', sans-serif; font-size: 24px; padding: 10px 30px; border-radius: 30px; border: none; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: all 0.2s; }
@@ -56,7 +57,7 @@
 
     #game-board-container { height: 100vh; width: 100vw; display: flex; }
     .game-layout { display: flex; flex-direction: row; width: 100%; height: 100%; }
-    .sidebar-section { width: 420px; height: 100vh; background: var(--main-purple); box-shadow: -15px 0 50px rgba(0,0,0,0.8); display: flex; flex-direction: column; justify-content: space-between; padding: 50px 30px; z-index: 20; }
+    .sidebar-section { width: 420px; height: 100%; background: var(--main-purple); box-shadow: -15px 0 50px rgba(0,0,0,0.8); display: flex; flex-direction: column; justify-content: space-between; padding: 50px 30px; z-index: 20; }
     .sidebar-logo { display: flex; flex-direction: column; align-items: center; filter: drop-shadow(0 8px 10px rgba(0,0,0,0.3)); }
     .sidebar-round { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: -10px; }
     .sidebar-round-text { font-family: 'Lalezar', sans-serif; font-size: 60px; color: #ff5252; margin: 0; line-height: 1; text-shadow: 3px 3px 0 var(--dark-shadow); }
@@ -77,7 +78,7 @@
     .score-number { font-family: 'Lalezar', sans-serif; font-size: 45px; font-weight: 900; color: white; line-height: 1; margin-top: 10px;}
 
     .board-section { flex-grow: 1; height: 100vh; display: flex; justify-content: center; align-items: center; position: relative; background: conic-gradient(from 315deg, var(--team2-color) 25%, var(--team1-color) 0 50%, var(--team2-color) 0 75%, var(--team1-color) 0); overflow: hidden; }
-    .board { position: relative; z-index: 5; width: 700px; height: 640px; transform: scale(1.35); filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); }
+    .board { position: relative; z-index: 5; width: 700px; height: 640px; transform: scale(1.35); filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); transform-origin: center center; }
     .hex-outer { position: absolute; width: 140px; height: 160px; background: var(--main-purple); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s; }
     .hex-outer:hover { transform: scale(1.08); z-index: 10; }
     .hex-inner { width: 100%; height: 100%; background: #ffffff; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); display: flex; align-items: center; justify-content: center; transform: scale(0.85); font-family: 'Lalezar', sans-serif; font-size: 70px; color: var(--main-purple); transition: background-color 0.2s, color 0.2s; padding-top: 15px; }
@@ -114,6 +115,65 @@
     @keyframes fall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(720deg); opacity: 1; } }
     
     .hidden { display: none !important; }
+
+    /* --- التعديل هنا: إضافة دعم الجوال (Responsive Design) --- */
+    @media (max-width: 992px) {
+        body { overflow-y: auto; height: auto; min-height: 100vh; }
+        #game-board-container { height: auto; min-height: 100vh; flex-direction: column; }
+        .game-layout { flex-direction: column; height: auto; }
+        
+        /* القائمة الرئيسية */
+        .word-huroof { font-size: 80px; text-shadow: 2px 2px 0 var(--dark-shadow); }
+        .word-m3 { font-size: 70px; text-shadow: 2px 2px 0 var(--dark-shadow); }
+        .word-name { font-size: 50px; text-shadow: 2px 2px 0 var(--dark-shadow); margin-top: 20px; }
+        .main-btn { width: 80%; max-width: 300px; font-size: 20px; padding: 10px 20px; }
+        
+        /* الإعدادات */
+        .settings-overlay { padding: 15px; }
+        .settings-grid { grid-template-columns: 1fr; gap: 10px; text-align: center; }
+        .set-label { font-size: 18px; margin-top: 10px; }
+        .color-themes-container { gap: 10px; }
+        .settings-form-wrapper { width: 100%; }
+        
+        /* منطقة اللوحة (الخلايا) */
+        .board-section { height: 60vh; min-height: 380px; width: 100vw; display: flex; align-items: center; justify-content: center; }
+        .board { transform: scale(0.5); margin-top: -60px; } /* تصغير اللوحة للنصف لتناسب شاشة الجوال */
+        
+        /* الشريط الجانبي (ينزل تحت في الجوال) */
+        .sidebar-section { width: 100%; height: auto; padding: 20px 15px; flex-direction: row; flex-wrap: wrap; justify-content: space-around; align-items: center; box-shadow: 0 -5px 20px rgba(0,0,0,0.5); z-index: 30; border-top: 3px solid rgba(255,255,255,0.1); }
+        .sidebar-logo { display: none; } /* إخفاء الشعار الكبير لتوفير مساحة للعب */
+        .sidebar-round { width: 100%; margin-top: 0; margin-bottom: 15px; flex-direction: row; justify-content: center; gap: 10px; }
+        .sidebar-round-text { font-size: 35px; }
+        .sidebar-round-num { font-size: 40px; }
+        
+        /* النتائج والجرس في الجوال */
+        #sidebar-buzzer-display { width: 100%; order: -1; margin-bottom: 15px; margin-top: 0; }
+        .sidebar-scores { margin-top: 0; width: 100%; }
+        .team-score-col { width: 48%; }
+        .team-name-text { font-size: 20px; }
+        .score-box { height: 50px; }
+        .score-number { font-size: 35px; }
+        
+        /* زر الخيارات */
+        .floating-options-wrapper { top: 10px; right: 10px; }
+        .options-btn { font-size: 18px; padding: 8px 20px; }
+        .options-menu { right: 0; width: 250px; }
+        
+        /* النوافذ المنبثقة (الأسئلة) */
+        .modal-content-custom { padding: 25px; width: 95%; margin: 10px; }
+        .modal-letter-box { width: 60px; height: 60px; font-size: 40px; margin-bottom: 15px; }
+        .modal-question { font-size: 22px; margin-bottom: 20px; }
+        .btn-wide-toggle { font-size: 20px; padding: 15px; }
+        .btn-half { font-size: 18px; padding: 12px; }
+        .answer-text { font-size: 24px; }
+        .team-btns button { font-size: 18px; padding: 10px; }
+    }
+    
+    /* للشاشات الصغيرة جداً */
+    @media (max-width: 400px) {
+        .board { transform: scale(0.42); }
+        .team-name-text { font-size: 16px; }
+    }
   </style>
 </head>
 <body>
