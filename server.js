@@ -13,9 +13,14 @@ const io = new Server(server);
 app.use(express.static(__dirname));
 
 // الآن الملفات مباشرة في __dirname
-app.get('/host.html', (req, res) => { res.sendFile(path.join(__dirname, 'host.html')); });
-app.get('/buzzer.html', (req, res) => { res.sendFile(path.join(__dirname, 'buzzer.html')); });
+// توجيهات ذكية لصفحة البداية والمقدم والجرس (بـ .html وبدونها)
+app.get('/', (req, res) => { res.sendFile(path.join(__dirname, 'index.html')); });
 
+app.get('/host', (req, res) => { res.sendFile(path.join(__dirname, 'host.html')); });
+app.get('/host.html', (req, res) => { res.sendFile(path.join(__dirname, 'host.html')); });
+
+app.get('/buzzer', (req, res) => { res.sendFile(path.join(__dirname, 'buzzer.html')); });
+app.get('/buzzer.html', (req, res) => { res.sendFile(path.join(__dirname, 'buzzer.html')); });
 // تحميل الأسئلة من نفس المجلد الرئيسي
 let baseQuestions = {};
 try {
