@@ -32,13 +32,11 @@
     .word-name { font-family: 'Lalezar', sans-serif; font-size: 85px; color: #ff5252; text-shadow: 4px 4px 0 var(--dark-shadow), -2px -2px 0 var(--dark-shadow), 2px -2px 0 var(--dark-shadow), -2px 2px 0 var(--dark-shadow), 0 6px 0 var(--dark-shadow); line-height: 1; margin-top: 40px; margin-bottom: 20px; z-index: 1; }
     .menu-btn-group { display: flex; flex-direction: column; gap: 15px; align-items: center; }
     
-    /* التعديل الأول: سطر واحد وبنفس الطول */
     .main-btn { font-family: 'Cairo', sans-serif; font-size: 24px; font-weight: 900; padding: 12px 60px; border: none; border-radius: 50px; cursor: pointer; color: #6b439b; background-color: #ffffff; width: 320px; max-width: 90vw; white-space: nowrap; box-shadow: 0 6px 0px rgba(0,0,0,0.2); transition: all 0.3s; }
     .main-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 12px 20px rgba(0,0,0,0.3); background-color: #ffca28; color: #392265; }
 
     .settings-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #6b439b; background-image: url("data:image/svg+xml,%3Csvg width='60' height='103.923' viewBox='0 0 60 103.923' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 103.923L0 86.603V51.962L30 34.641l30 17.321v34.641L30 103.923zM30 34.641L0 17.321V-17.321L30-34.641l30 17.321V17.321L30 34.641z' stroke='rgba(255,255,255,0.05)' stroke-width='2' fill='none'/%3E%3C/svg%3E"); background-size: 80px 138px; z-index: 100; overflow-y: auto; display: flex; flex-direction: column; align-items: center; padding: 30px 0; }
     
-    /* التعديل الثاني: توسيع مساحة الإعدادات */
     .settings-form-wrapper { width: 850px; max-width: 95%; margin-top: 10px; }
     .settings-grid { display: grid; grid-template-columns: 200px 1fr; gap: 18px 20px; align-items: center; }
     .set-label { font-size: 22px; font-weight: 900; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
@@ -63,14 +61,17 @@
     #game-board-container { height: 100vh; width: 100vw; display: flex; }
     .game-layout { display: flex; flex-direction: row; width: 100%; height: 100%; }
     
-    /* التعديل الثالث: جعل السايدبار ياخذ 35% من مساحة اللابتوب */
-    .sidebar-section { width: 35%; height: 100%; background: var(--main-purple); box-shadow: -15px 0 50px rgba(0,0,0,0.8); display: flex; flex-direction: column; justify-content: space-between; padding: 40px 20px; z-index: 20; }
-    .board-section { flex-grow: 1; width: 65%; height: 100vh; display: flex; justify-content: center; align-items: center; position: relative; background: conic-gradient(from 315deg, var(--team2-color) 25%, var(--team1-color) 0 50%, var(--team2-color) 0 75%, var(--team1-color) 0); overflow: hidden; }
+    /* التعديل: تقصير السايدبار إلى 24% عشان يطابق الخط الأحمر في اللابتوب */
+    .sidebar-section { width: 24%; height: 100%; background: var(--main-purple); box-shadow: -15px 0 50px rgba(0,0,0,0.8); display: flex; flex-direction: column; justify-content: space-between; padding: 30px 20px; z-index: 20; }
+    /* توسيع مساحة اللعب بعد تقصير السايدبار */
+    .board-section { flex-grow: 1; width: 76%; height: 100vh; display: flex; justify-content: center; align-items: center; position: relative; background: conic-gradient(from 315deg, var(--team2-color) 25%, var(--team1-color) 0 50%, var(--team2-color) 0 75%, var(--team1-color) 0); overflow: hidden; }
     
     .sidebar-logo { display: flex; flex-direction: column; align-items: center; filter: drop-shadow(0 8px 10px rgba(0,0,0,0.3)); }
-    .sidebar-round { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: -10px; }
-    .sidebar-round-text { font-family: 'Lalezar', sans-serif; font-size: 50px; color: #ff5252; margin: 0; line-height: 1; text-shadow: 3px 3px 0 var(--dark-shadow); }
-    .sidebar-round-num { font-family: 'Lalezar', sans-serif; font-size: 65px; color: #ffca28; margin: 0; line-height: 1; text-shadow: 3px 3px 0 var(--dark-shadow); }
+    .sidebar-round { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 10px; }
+    
+    /* التعديل: تكبير خط الجولة الأولى في اللابتوب */
+    .sidebar-round-text { font-family: 'Lalezar', sans-serif; font-size: 65px; color: #ff5252; margin: 0; line-height: 1; text-shadow: 3px 3px 0 var(--dark-shadow); }
+    .sidebar-round-num { font-family: 'Lalezar', sans-serif; font-size: 80px; color: #ffca28; margin: 0; line-height: 1; text-shadow: 3px 3px 0 var(--dark-shadow); }
     
     #sidebar-buzzer-display { background: rgba(0, 0, 0, 0.3); border: 2px solid #ffca28; border-radius: 15px; padding: 10px; text-align: center; margin-top: 15px; width: 100%; animation: fadeIn 0.3s ease; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
     .buzzer-player-name { font-family: 'Cairo'; font-size: 16px; font-weight: 900; color: white; margin-bottom: 5px; }
@@ -80,11 +81,13 @@
 
     .sidebar-scores { display: flex; justify-content: space-between; align-items: center; width: 100%; }
     .team-score-col { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 48%; }
-    .team-name-text { font-family: 'Lalezar', sans-serif; font-size: 22px; line-height: 1; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+    /* التعديل: تكبير أسماء الفرق ونتائجهم */
+    .team-name-text { font-family: 'Lalezar', sans-serif; font-size: 28px; line-height: 1; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
     #team1-name-display { color: var(--team1-color); } #team2-name-display { color: var(--team2-color); }
-    .score-box { width: 100%; height: 55px; border-radius: 12px; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+    /* التعديل: تكبير مربعات الأرقام */
+    .score-box { width: 100%; height: 80px; border-radius: 15px; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
     #score1-box { background-color: var(--team1-color); } #score2-box { background-color: var(--team2-color); }
-    .score-number { font-family: 'Lalezar', sans-serif; font-size: 40px; font-weight: 900; color: white; line-height: 1; margin-top: 8px;}
+    .score-number { font-family: 'Lalezar', sans-serif; font-size: 60px; font-weight: 900; color: white; line-height: 1; margin-top: 8px;}
 
     .board { position: relative; z-index: 5; width: 700px; height: 640px; transform: scale(1.25); filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); transform-origin: center center; margin: auto; }
     
@@ -127,6 +130,28 @@
     @keyframes fall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(720deg); opacity: 1; } }
     
     .hidden { display: none !important; }
+
+    /* التعديل: تصميم تأثير الجرس اللي يظهر بنص الشاشة */
+    #bell-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+    .bell-icon {
+        font-size: 20rem;
+        animation: shake 0.5s infinite;
+    }
+    @keyframes shake {
+        0% { transform: rotate(0deg); }
+        25% { transform: rotate(-20deg); }
+        50% { transform: rotate(0deg); }
+        75% { transform: rotate(20deg); }
+        100% { transform: rotate(0deg); }
+    }
 
     /* --- التعديلات المخصصة للجوال فقط --- */
     @media screen and (max-width: 992px) {
@@ -178,9 +203,9 @@
         .sidebar-logo .word-m3 { font-size: 35px !important; line-height: 0.5;}
         .sidebar-logo .word-name { font-size: 30px !important; margin-top: 12px !important;}
         
-        /* التعديل الرابع: تكبير نصوص الجولة في الجوال */
-        .sidebar-round-text { font-size: 32px !important; margin-bottom: -5px;}
-        .sidebar-round-num { font-size: 42px !important; margin-top: -5px; }
+        /* التعديل: فك التلصيق بين الجولة والأولى في الجوال (موجب بدل سالب) */
+        .sidebar-round-text { font-size: 32px !important; margin-bottom: 5px !important;}
+        .sidebar-round-num { font-size: 42px !important; margin-top: 5px !important; }
         
         .sidebar-scores { flex-direction: row; gap: 5px; margin-top: 5px !important; }
         .team-score-col { width: 48%; gap: 5px;}
@@ -188,7 +213,6 @@
         .score-box { height: 35px !important; border-radius: 8px !important; }
         .score-number { font-size: 22px !important; margin-top: 5px !important;}
 
-        /* التعديل الخامس: توسيع مساحة الجرس بشكل أوضح في الجوال */
         #sidebar-buzzer-display { 
             padding: 15px 5px; 
             width: 95%; 
@@ -219,8 +243,11 @@
         .sidebar-logo .word-huroof { font-size: 45px !important; }
         .sidebar-logo .word-m3 { font-size: 35px !important; }
         .sidebar-logo .word-name { font-size: 30px !important; margin-top: 12px !important;}
-        .sidebar-round-text { font-size: 32px !important; margin-bottom: -5px; }
-        .sidebar-round-num { font-size: 42px !important; margin-top: -5px; }
+        
+        /* التعديل: فك التلصيق هنا بعد */
+        .sidebar-round-text { font-size: 32px !important; margin-bottom: 5px !important; }
+        .sidebar-round-num { font-size: 42px !important; margin-top: 5px !important; }
+        
         .team-name-text { font-size: 13px !important; }
         .score-box { height: 35px !important; border-radius: 8px !important; }
         .score-number { font-size: 22px !important; margin-top: 5px !important;}
@@ -240,6 +267,10 @@
   </style>
 </head>
 <body>
+
+  <div id="bell-overlay">
+      <div class="bell-icon">🔔</div>
+  </div>
   
   <div id="main-menu" class="main-menu-overlay">
     <div class="menu-content">
@@ -338,7 +369,10 @@
         </div>
         <button class="menu-item-btn gradient-btn" id="opt-restart-btn">🔄 بداية لعبة جديدة</button>
         <button class="menu-item-btn" id="opt-host-screen-btn" style="background: #f5f3fa; display: none;">📱 شاشة المقدم البشري</button>
-        <button class="menu-item-btn" id="opt-bell-btn">🔔 الجرس</button>
+        <button class="menu-item-btn" id="opt-bell-btn">🔔 رابط الجرس (QR)</button>
+        
+        <button class="menu-item-btn" id="opt-trigger-bell-btn" style="background: #ff5252; color: white; border-color: #ff5252;">🔔 دق الجرس للشاشات</button>
+        
         <button class="menu-item-btn" id="opt-settings-btn">⚙️ الإعدادات</button>
       </div>
     </div>
@@ -349,9 +383,9 @@
       </div>
       <div class="sidebar-section">
         <div class="sidebar-logo">
-          <h1 class="word-huroof" style="font-size: 80px; text-shadow: 3px 3px 0 var(--dark-shadow);">حروف</h1>
-          <h1 class="word-m3" style="font-size: 60px; text-shadow: 3px 3px 0 var(--dark-shadow);">مــــع</h1>
-          <h1 class="word-name" id="dynamic-name" style="font-size: 55px; margin-top: 25px; margin-bottom: 0px; text-shadow: 3px 3px 0 var(--dark-shadow);">اسمك</h1>
+          <h1 class="word-huroof" style="font-size: 110px; text-shadow: 4px 4px 0 var(--dark-shadow); line-height: 1; margin: 0;">حروف</h1>
+          <h1 class="word-m3" style="font-size: 85px; text-shadow: 3px 3px 0 var(--dark-shadow); line-height: 0.5; margin: 0;">مــــع</h1>
+          <h1 class="word-name" id="dynamic-name" style="font-size: 75px; margin-top: 35px; margin-bottom: 0px; text-shadow: 4px 4px 0 var(--dark-shadow);">اسمك</h1>
         </div>
         
         <div class="sidebar-round">
@@ -411,6 +445,36 @@
     const buzzerTimerLabel = document.getElementById('buzzer-timer-label');
 
     let currentSelectedCellIndex = null;
+
+    // --- التعديل: برمجة زر الجرس الجديد عشان يظهر في كل الشاشات ---
+    const triggerBellBtn = document.getElementById('opt-trigger-bell-btn');
+    if(triggerBellBtn) {
+        triggerBellBtn.addEventListener('click', () => {
+            // نرسل الأمر لكل الشاشات المفتوحة (شاشة المقدم وشاشة العرض)
+            localStorage.setItem('triggerBellEffect', Date.now());
+            showGiantBellEffect(); // نظهره بشاشتك بعد
+            document.getElementById('options-menu').classList.add('hidden');
+        });
+    }
+
+    // استقبال أمر الجرس بالشاشة الثانية
+    window.addEventListener('storage', (event) => {
+        if (event.key === 'triggerBellEffect') {
+            showGiantBellEffect();
+        }
+    });
+
+    // دالة إظهار الجرس الكبير
+    function showGiantBellEffect() {
+        const overlay = document.getElementById('bell-overlay');
+        overlay.style.display = 'flex'; // يخليه يطلع بالنص بالضبط
+        
+        // يختفي بعد 3 ثواني
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, 3000);
+    }
+    // -------------------------------------------------------------
 
     function adjustTimer(id, delta) {
         let el = document.getElementById(id + '-val');
@@ -534,7 +598,6 @@
       const compName = document.getElementById('comp-name')?.value || 'اسمك';
       mainMenu.classList.add('hidden'); gameContainer.classList.remove('hidden');
       
-      // أزلنا الإجبار على الوضع الأفقي بالجافاسكربت عشان تقدر تقلب الإعدادات، واستخدمنا الـ CSS فقط للخلية.
       let doc = document.documentElement;
       if (doc.requestFullscreen) {
         doc.requestFullscreen().catch(e => console.log("إلغاء وضع الشاشة الكاملة"));
@@ -594,7 +657,6 @@
             currentSelectedCellIndex = index; 
             if (cell.color) return; 
             
-            // الحل هنا: نرسل الحدث للسيرفر في كل الحالات عشان يشتغل الجرس والمقدم البشري بدون مشاكل!
             socket.emit('select-cell', index);
 
             if (currentHostMode !== 'auto') {
