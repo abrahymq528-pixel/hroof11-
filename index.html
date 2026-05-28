@@ -31,11 +31,15 @@
     .word-m3 { font-family: 'Lalezar', sans-serif; font-size: 110px; color: #26a69a; text-shadow: 4px 4px 0 var(--dark-shadow), -2px -2px 0 var(--dark-shadow), 2px -2px 0 var(--dark-shadow), -2px 2px 0 var(--dark-shadow), 0 6px 0 var(--dark-shadow); line-height: 0.55; margin: 0; z-index: 2; }
     .word-name { font-family: 'Lalezar', sans-serif; font-size: 85px; color: #ff5252; text-shadow: 4px 4px 0 var(--dark-shadow), -2px -2px 0 var(--dark-shadow), 2px -2px 0 var(--dark-shadow), -2px 2px 0 var(--dark-shadow), 0 6px 0 var(--dark-shadow); line-height: 1; margin-top: 40px; margin-bottom: 20px; z-index: 1; }
     .menu-btn-group { display: flex; flex-direction: column; gap: 15px; align-items: center; }
-    .main-btn { font-family: 'Cairo', sans-serif; font-size: 24px; font-weight: 900; padding: 12px 60px; border: none; border-radius: 50px; cursor: pointer; color: #6b439b; background-color: #ffffff; width: 320px; box-shadow: 0 6px 0px rgba(0,0,0,0.2); transition: all 0.3s; }
+    
+    /* التعديل الأول: سطر واحد وبنفس الطول */
+    .main-btn { font-family: 'Cairo', sans-serif; font-size: 24px; font-weight: 900; padding: 12px 60px; border: none; border-radius: 50px; cursor: pointer; color: #6b439b; background-color: #ffffff; width: 320px; max-width: 90vw; white-space: nowrap; box-shadow: 0 6px 0px rgba(0,0,0,0.2); transition: all 0.3s; }
     .main-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 12px 20px rgba(0,0,0,0.3); background-color: #ffca28; color: #392265; }
 
     .settings-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #6b439b; background-image: url("data:image/svg+xml,%3Csvg width='60' height='103.923' viewBox='0 0 60 103.923' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 103.923L0 86.603V51.962L30 34.641l30 17.321v34.641L30 103.923zM30 34.641L0 17.321V-17.321L30-34.641l30 17.321V17.321L30 34.641z' stroke='rgba(255,255,255,0.05)' stroke-width='2' fill='none'/%3E%3C/svg%3E"); background-size: 80px 138px; z-index: 100; overflow-y: auto; display: flex; flex-direction: column; align-items: center; padding: 30px 0; }
-    .settings-form-wrapper { width: 750px; max-width: 95%; margin-top: 10px; }
+    
+    /* التعديل الثاني: توسيع مساحة الإعدادات */
+    .settings-form-wrapper { width: 850px; max-width: 95%; margin-top: 10px; }
     .settings-grid { display: grid; grid-template-columns: 200px 1fr; gap: 18px 20px; align-items: center; }
     .set-label { font-size: 22px; font-weight: 900; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
     .pill-input { width: 100%; background: transparent; border: 2px solid white; border-radius: 50px; color: white; padding: 10px 20px; font-size: 20px; font-weight: bold; font-family: 'Cairo'; text-align: center; outline: none; transition: 0.2s; }
@@ -59,8 +63,10 @@
     #game-board-container { height: 100vh; width: 100vw; display: flex; }
     .game-layout { display: flex; flex-direction: row; width: 100%; height: 100%; }
     
-    /* --- المستطيل اليسار للكمبيوتر / اللاب توب (حجمه الأساسي 380 بيكسل) --- */
-    .sidebar-section { width: 380px; height: 100%; background: var(--main-purple); box-shadow: -15px 0 50px rgba(0,0,0,0.8); display: flex; flex-direction: column; justify-content: space-between; padding: 40px 20px; z-index: 20; }
+    /* التعديل الثالث: جعل السايدبار ياخذ 35% من مساحة اللابتوب */
+    .sidebar-section { width: 35%; height: 100%; background: var(--main-purple); box-shadow: -15px 0 50px rgba(0,0,0,0.8); display: flex; flex-direction: column; justify-content: space-between; padding: 40px 20px; z-index: 20; }
+    .board-section { flex-grow: 1; width: 65%; height: 100vh; display: flex; justify-content: center; align-items: center; position: relative; background: conic-gradient(from 315deg, var(--team2-color) 25%, var(--team1-color) 0 50%, var(--team2-color) 0 75%, var(--team1-color) 0); overflow: hidden; }
+    
     .sidebar-logo { display: flex; flex-direction: column; align-items: center; filter: drop-shadow(0 8px 10px rgba(0,0,0,0.3)); }
     .sidebar-round { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: -10px; }
     .sidebar-round-text { font-family: 'Lalezar', sans-serif; font-size: 50px; color: #ff5252; margin: 0; line-height: 1; text-shadow: 3px 3px 0 var(--dark-shadow); }
@@ -80,7 +86,6 @@
     #score1-box { background-color: var(--team1-color); } #score2-box { background-color: var(--team2-color); }
     .score-number { font-family: 'Lalezar', sans-serif; font-size: 40px; font-weight: 900; color: white; line-height: 1; margin-top: 8px;}
 
-    .board-section { flex-grow: 1; height: 100vh; display: flex; justify-content: center; align-items: center; position: relative; background: conic-gradient(from 315deg, var(--team2-color) 25%, var(--team1-color) 0 50%, var(--team2-color) 0 75%, var(--team1-color) 0); overflow: hidden; }
     .board { position: relative; z-index: 5; width: 700px; height: 640px; transform: scale(1.25); filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)); transform-origin: center center; margin: auto; }
     
     .hex-outer { position: absolute; width: 140px; height: 160px; background: var(--main-purple); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s; }
@@ -103,7 +108,7 @@
     .modal-letter-box { width: 80px; height: 80px; margin: 0 auto 25px auto; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 18px; display: flex; justify-content: center; align-items: center; font-size: 55px; font-family: 'Lalezar'; color: white; box-shadow: inset 0 0 10px rgba(255,255,255,0.1); padding-top:10px; }
     
     .modal-question { font-size: 35px; font-weight: bold; margin-bottom: 35px; line-height: 1.4; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
-    .qr-img { width: 150px; height: 150px; border-radius: 8px; } /* كلاس جديد للباركود للتحكم بمقاسه */
+    .qr-img { width: 150px; height: 150px; border-radius: 8px; } 
 
     .btn-wide-toggle { width: 100%; background: rgba(140, 90, 100, 0.8); border: 1px solid rgba(255,255,255,0.15); color: #ffeb3b; padding: 20px; border-radius: 15px; font-size: 26px; font-weight: bold; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 5px; transition: 0.2s; font-family: 'Cairo', sans-serif; }
     .modal-bottom-row { display: flex; gap: 15px; margin-top: 15px; }
@@ -125,12 +130,11 @@
 
     /* --- التعديلات المخصصة للجوال فقط --- */
     @media screen and (max-width: 992px) {
-        /* تكبير الشعار والاسم */
         .word-huroof { font-size: 80px; text-shadow: 2px 2px 0 var(--dark-shadow); }
         .word-m3 { font-size: 70px; text-shadow: 2px 2px 0 var(--dark-shadow); }
         .word-name { font-size: 50px; text-shadow: 2px 2px 0 var(--dark-shadow); margin-top: 20px; }
         
-        .main-btn { width: 80%; max-width: 300px; font-size: 20px; padding: 10px 20px; }
+        .main-btn { font-size: 20px; padding: 10px 20px; }
         .settings-overlay { padding: 15px; }
         .settings-grid { grid-template-columns: 1fr; gap: 10px; text-align: center; }
         .set-label { font-size: 18px; margin-top: 10px; }
@@ -139,10 +143,7 @@
         
         .modal-content-custom { padding: 15px; width: 95%; max-height: 90vh; overflow-y: auto; border-radius: 15px; }
         .modal-letter-box { width: 45px; height: 45px; font-size: 30px; margin-bottom: 10px; padding-top: 5px; }
-        
-        /* تصغير حجم نص السؤال في الجوال فقط */
         .modal-question { font-size: 18px; margin-bottom: 15px; } 
-        /* تصغير الباركود في الجوال فقط */
         .qr-img { width: 100px !important; height: 100px !important; }
 
         .btn-wide-toggle { font-size: 18px; padding: 12px; }
@@ -151,7 +152,7 @@
         .team-btns button { font-size: 16px; padding: 8px; }
     }
 
-    /* الخدعة الأساسية: الإجبار على الوضع الأفقي للجوال (Portrait) */
+    /* إجبار الخلية (فقط) على الوضع الأفقي للجوال (Portrait) */
     @media screen and (max-width: 992px) and (orientation: portrait) {
         #game-board-container:not(.hidden), #celebration-overlay:not(.hidden) {
             position: fixed !important;
@@ -165,46 +166,21 @@
             z-index: 9999;
         }
 
-        .game-layout {
-            flex-direction: row !important;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* القسم الأيسر للجوال - خليته 35% عشان يستوعب النصوص المكبرة وتوسيع الجرس */
+        .game-layout { flex-direction: row !important; width: 100%; height: 100%; }
         .sidebar-section {
             width: 35% !important; 
-            height: 100%;
-            padding: 10px 5px !important;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            box-shadow: inset -5px 0 15px rgba(0,0,0,0.5);
-            border: none;
-            z-index: 20;
+            height: 100%; padding: 10px 5px !important; display: flex; flex-direction: column; justify-content: space-evenly; box-shadow: inset -5px 0 15px rgba(0,0,0,0.5); border: none; z-index: 20;
         }
+        .board-section { width: 65% !important; height: 100%; display: flex; align-items: center; justify-content: center; }
+        .board { transform: scale(0.45) !important; margin: 0 !important; }
 
-        .board-section {
-            width: 65% !important;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .board {
-            transform: scale(0.45) !important; 
-            margin: 0 !important;
-        }
-
-        /* --- التكبير اللي طلبته للجوال (حروف مع اسمك) --- */
         .sidebar-logo .word-huroof { font-size: 45px !important; line-height: 1;}
         .sidebar-logo .word-m3 { font-size: 35px !important; line-height: 0.5;}
         .sidebar-logo .word-name { font-size: 30px !important; margin-top: 12px !important;}
         
-        /* --- التكبير اللي طلبته لـ (الجولة الأولى) --- */
-        .sidebar-round-text { font-size: 26px !important; margin-bottom: 0;}
-        .sidebar-round-num { font-size: 32px !important; margin-top: -5px; }
+        /* التعديل الرابع: تكبير نصوص الجولة في الجوال */
+        .sidebar-round-text { font-size: 32px !important; margin-bottom: -5px;}
+        .sidebar-round-num { font-size: 42px !important; margin-top: -5px; }
         
         .sidebar-scores { flex-direction: row; gap: 5px; margin-top: 5px !important; }
         .team-score-col { width: 48%; gap: 5px;}
@@ -212,16 +188,17 @@
         .score-box { height: 35px !important; border-radius: 8px !important; }
         .score-number { font-size: 22px !important; margin-top: 5px !important;}
 
-        /* --- توسيع مساحة الجرس على الجوال --- */
+        /* التعديل الخامس: توسيع مساحة الجرس بشكل أوضح في الجوال */
         #sidebar-buzzer-display { 
-            padding: 12px; /* كبرنا الـ padding لزيادة المساحة */
+            padding: 15px 5px; 
             width: 95%; 
             align-self: center; 
-            margin: 10px 0; /* زدنا المسافة من فوق وتحت */
+            margin: 15px 0;
+            display: flex; flex-direction: column; justify-content: center;
         }
-        .buzzer-player-name { font-size: 12px; margin-bottom: 2px;}
-        .buzzer-timer-value { font-size: 26px; }
-        .buzzer-timer-label { font-size: 12px; }
+        .buzzer-player-name { font-size: 13px; margin-bottom: 2px;}
+        .buzzer-timer-value { font-size: 32px; }
+        .buzzer-timer-label { font-size: 13px; }
 
         .floating-options-wrapper { top: 5px; right: 5px; }
         .options-btn { font-size: 13px; padding: 4px 8px; }
@@ -232,24 +209,25 @@
         #celeb-title { font-size: 35px !important; }
     }
 
-    /* إذا كان الجوال بالعرض خلقة (Landscape) */
+    /* إذا كان الجوال بالعرض (Landscape) */
     @media screen and (max-height: 600px) and (orientation: landscape) {
         .game-layout { flex-direction: row !important; }
         .sidebar-section { width: 35% !important; padding: 10px !important; justify-content: space-evenly; }
         .board-section { width: 65% !important; }
         .board { transform: scale(0.45) !important; margin: 0 !important; }
         
-        /* نفس تكبير النصوص اللي فوق ينطبق هنا للمقاس العرضي */
         .sidebar-logo .word-huroof { font-size: 45px !important; }
         .sidebar-logo .word-m3 { font-size: 35px !important; }
         .sidebar-logo .word-name { font-size: 30px !important; margin-top: 12px !important;}
-        .sidebar-round-text { font-size: 26px !important; }
-        .sidebar-round-num { font-size: 32px !important; }
+        .sidebar-round-text { font-size: 32px !important; margin-bottom: -5px; }
+        .sidebar-round-num { font-size: 42px !important; margin-top: -5px; }
         .team-name-text { font-size: 13px !important; }
         .score-box { height: 35px !important; border-radius: 8px !important; }
         .score-number { font-size: 22px !important; margin-top: 5px !important;}
 
-        #sidebar-buzzer-display { padding: 12px; margin: 10px 0; }
+        #sidebar-buzzer-display { padding: 15px 5px; margin: 15px 0; display: flex; flex-direction: column; justify-content: center; }
+        .buzzer-player-name { font-size: 13px; }
+        .buzzer-timer-value { font-size: 32px; }
         
         .floating-options-wrapper { top: 5px; right: 5px; }
         .options-btn { font-size: 13px; padding: 4px 8px; }
@@ -508,7 +486,6 @@
 
     function showQrModal(title, urlStr) {
       const modalBody = document.getElementById('modal-body');
-      /* استخدام الكلاس qr-img عشان نصغره بالجوال ونحافظ عليه كبير بالكمبيوتر */
       modalBody.innerHTML = `
         <div class="close-modal-x" id="close-qr-btn">✖</div>
         <h2 style="font-family:'Lalezar'; font-size:30px; margin-bottom:10px;">${title}</h2>
@@ -557,13 +534,10 @@
       const compName = document.getElementById('comp-name')?.value || 'اسمك';
       mainMenu.classList.add('hidden'); gameContainer.classList.remove('hidden');
       
+      // أزلنا الإجبار على الوضع الأفقي بالجافاسكربت عشان تقدر تقلب الإعدادات، واستخدمنا الـ CSS فقط للخلية.
       let doc = document.documentElement;
       if (doc.requestFullscreen) {
-        doc.requestFullscreen().then(() => {
-          if (screen.orientation && screen.orientation.lock) {
-            screen.orientation.lock("landscape").catch(e => console.log("المتصفح لا يدعم القفل الإجباري"));
-          }
-        }).catch(e => console.log("إلغاء وضع الشاشة الكاملة"));
+        doc.requestFullscreen().catch(e => console.log("إلغاء وضع الشاشة الكاملة"));
       }
 
       socket.emit('create-room', {
@@ -620,22 +594,38 @@
             currentSelectedCellIndex = index; 
             if (cell.color) return; 
             
-            if (currentHostMode === 'auto') {
-                socket.emit('select-cell', index);
-            } else {
+            // الحل هنا: نرسل الحدث للسيرفر في كل الحالات عشان يشتغل الجرس والمقدم البشري بدون مشاكل!
+            socket.emit('select-cell', index);
+
+            if (currentHostMode !== 'auto') {
                 const modalBody = document.getElementById('modal-body');
+                const team1Name = document.getElementById('team1-name-display').textContent;
+                const team2Name = document.getElementById('team2-name-display').textContent;
+                
                 modalBody.innerHTML = `
                   <div class="close-modal-x" id="close-host-alert-btn">✖</div>
                   <div class="modal-letter-box" style="margin-bottom: 20px;">${cell.letter}</div>
                   <div class="modal-question" style="color: #ffca28; font-size: 32px;">السؤال مخصص للمقدم البشري 📱</div>
-                  <p style="font-size: 18px; margin-bottom: 20px;">يرجى قراءة السؤال واختيار الإجابة من جوال التحكم.</p>
-                  <div class="modal-bottom-row" style="justify-content: center;">
-                    <button class="btn-half" style="max-width: 200px;" id="ok-close-btn">حسناً</button>
+                  <p style="font-size: 18px; margin-bottom: 20px;">الرجاء قراءة السؤال واختيار الإجابة من جوال التحكم.</p>
+                  
+                  <div class="team-btns" style="margin-top: 15px;">
+                      <button id="hm-team1-btn" style="background-color: var(--team1-color); color: white;">${team1Name}</button>
+                      <button id="hm-team2-btn" style="background-color: var(--team2-color); color: white;">${team2Name}</button>
+                  </div>
+                  
+                  <div class="modal-bottom-row" style="justify-content: center; margin-top: 15px;">
+                    <button class="btn-half" style="max-width: 200px;" id="hm-cancel-btn">إلغاء السؤال</button>
+                    <button class="btn-half" style="max-width: 200px;" id="ok-close-btn">إخفاء النافذة</button>
                   </div>
                 `;
                 document.getElementById('modal').classList.remove('hidden');
+                
                 document.getElementById('close-host-alert-btn').addEventListener('click', () => document.getElementById('modal').classList.add('hidden'));
                 document.getElementById('ok-close-btn').addEventListener('click', () => document.getElementById('modal').classList.add('hidden'));
+                
+                document.getElementById('hm-team1-btn').addEventListener('click', () => { document.getElementById('modal').classList.add('hidden'); socket.emit('host-assign-point', { teamIndex: 0 }); });
+                document.getElementById('hm-team2-btn').addEventListener('click', () => { document.getElementById('modal').classList.add('hidden'); socket.emit('host-assign-point', { teamIndex: 1 }); });
+                document.getElementById('hm-cancel-btn').addEventListener('click', () => { document.getElementById('modal').classList.add('hidden'); socket.emit('reset-question'); });
             }
         });
         board.appendChild(hexOuter);
