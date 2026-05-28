@@ -100,19 +100,32 @@
     .hex-outer:nth-child(21) { top: 480px; left: 0px; } .hex-outer:nth-child(22) { top: 480px; left: 140px; } .hex-outer:nth-child(23) { top: 480px; left: 280px; } .hex-outer:nth-child(24) { top: 480px; left: 420px; } .hex-outer:nth-child(25) { top: 480px; left: 560px; }
 
     .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; z-index: 200; }
-    .modal-content-custom { background: #5a3b8c; padding: 40px; border-radius: 25px; max-width: 650px; width: 90%; color: white; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); position: relative;}
-    .close-modal-x { position: absolute; top: 15px; left: 20px; font-size: 24px; font-weight: bold; cursor: pointer; color: #fff; background: rgba(255,255,255,0.2); width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; transition: 0.2s; }
-    .close-modal-x:hover { background: rgba(255,82,82,0.8); }
-    .modal-letter-box { width: 80px; height: 80px; margin: 0 auto 25px auto; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 18px; display: flex; justify-content: center; align-items: center; font-size: 55px; font-family: 'Lalezar'; color: white; box-shadow: inset 0 0 10px rgba(255,255,255,0.1); padding-top:10px; }
     
-    .modal-question { font-size: 35px; font-weight: bold; margin-bottom: 35px; line-height: 1.4; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+    /* --- التعديل الجذري للنافذة لمنع التداخل --- */
+    .modal-content-custom { background: #5a3b8c; padding: 40px; border-radius: 25px; max-width: 650px; width: 90%; color: white; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); position: relative; display: flex; flex-direction: column; max-height: 90vh; }
+    
+    /* تعديل جديد لمكان الحرف عشان يكون في النص دايمًا وما يتأثر بالسكرول */
+    .modal-letter-wrapper { display: flex; justify-content: center; width: 100%; flex-shrink: 0; margin-bottom: 15px; }
+    
+    .modal-letter-box { width: 80px; height: 80px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 18px; display: flex; justify-content: center; align-items: center; font-size: 55px; font-family: 'Lalezar'; color: white; box-shadow: inset 0 0 10px rgba(255,255,255,0.1); line-height: 1; padding-top: 8px; /* وزنية خط الحرف للمنتصف */ }
+    
+    /* التعديل الجذري على السؤال عشان ما يغطي على باقي المربع */
+    .question-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; flex-grow: 1; overflow-y: auto; margin-bottom: 20px; padding: 0 10px; }
+    .question-wrapper::-webkit-scrollbar { width: 5px; }
+    .question-wrapper::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 5px; }
+    .action-wrapper { width: 100%; flex-shrink: 0; }
+    
+    .close-modal-x { position: absolute; top: 15px; left: 20px; font-size: 24px; font-weight: bold; cursor: pointer; color: #fff; background: rgba(255,255,255,0.2); width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; transition: 0.2s; z-index: 10; }
+    .close-modal-x:hover { background: rgba(255,82,82,0.8); }
+    
+    .modal-question { font-size: 35px; font-weight: bold; margin-bottom: 20px; line-height: 1.4; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
     .qr-img { width: 150px; height: 150px; border-radius: 8px; } 
 
     .btn-wide-toggle { width: 100%; background: rgba(140, 90, 100, 0.8); border: 1px solid rgba(255,255,255,0.15); color: #ffeb3b; padding: 20px; border-radius: 15px; font-size: 26px; font-weight: bold; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 5px; transition: 0.2s; font-family: 'Cairo', sans-serif; }
     .modal-bottom-row { display: flex; gap: 15px; margin-top: 15px; }
     .btn-half { flex: 1; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: white; padding: 15px; border-radius: 15px; font-size: 22px; font-weight: bold; cursor: pointer; transition: 0.2s; font-family: 'Cairo', sans-serif; display: flex; justify-content: center; align-items: center; gap: 10px; }
     .btn-half:hover { background: rgba(255, 255, 255, 0.15); transform: scale(1.02); }
-    .answer-reveal-area { background: rgba(0,0,0,0.2); padding: 20px; border-radius: 15px; margin-top: 20px; margin-bottom: 20px; animation: fadeIn 0.3s ease; }
+    .answer-reveal-area { background: rgba(0,0,0,0.2); padding: 20px; border-radius: 15px; margin-bottom: 20px; animation: fadeIn 0.3s ease; }
     .answer-text { font-size: 32px; color: #ffeb3b; font-weight: bold; margin-bottom: 15px; }
     .team-btns { display: flex; gap: 10px; justify-content: center; }
     .team-btns button { flex: 1; padding: 12px; border: none; border-radius: 10px; font-family: 'Cairo', sans-serif; font-size: 22px; font-weight: bold; cursor: pointer; transition: 0.2s; }
@@ -157,7 +170,7 @@
         100% { transform: rotate(0deg); }
     }
 
-    /* --- التعديلات المخصصة للجوال عشان النافذة تكفي بدون ما تنزل --- */
+    /* --- التعديلات المخصصة للجوال --- */
     @media screen and (max-width: 992px) {
         .word-huroof { font-size: 80px; text-shadow: 2px 2px 0 var(--dark-shadow); }
         .word-m3 { font-size: 70px; text-shadow: 2px 2px 0 var(--dark-shadow); }
@@ -170,10 +183,12 @@
         .color-themes-container { gap: 10px; }
         .settings-form-wrapper { width: 100%; }
         
-        /* تصغير عناصر نافذة السؤال للجوال */
-        .modal-content-custom { padding: 12px; width: 96%; max-height: 98vh; border-radius: 12px; overflow-y: hidden; }
-        .modal-letter-box { width: 35px; height: 35px; font-size: 22px; margin: 0 auto 8px auto; padding-top: 2px; border-radius: 10px; }
-        .modal-question { font-size: 15px; margin-bottom: 10px; line-height: 1.3; } 
+        /* تصغير وضبط عناصر نافذة السؤال للجوال */
+        .modal-content-custom { padding: 15px; width: 96%; max-height: 95vh; border-radius: 12px; }
+        .modal-letter-wrapper { margin-bottom: 10px; }
+        .modal-letter-box { width: 50px; height: 50px; font-size: 28px; border-radius: 12px; line-height: 1; padding-top: 4px; }
+        .modal-question { font-size: 18px; margin-bottom: 10px; line-height: 1.4; } 
+        .question-wrapper { max-height: 45vh; margin-bottom: 10px; padding: 0 5px; }
         .qr-img { width: 100px !important; height: 100px !important; }
 
         .btn-wide-toggle { font-size: 15px; padding: 8px; border-radius: 10px; }
@@ -448,14 +463,12 @@
 
     let currentSelectedCellIndex = null;
 
-    // دالة إظهار الجرس الكبير في الشاشة الرئيسية
     function showGiantBellEffect(playerName) {
         const overlay = document.getElementById('bell-overlay');
         const nameEl = document.getElementById('bell-player-name');
         if(nameEl && playerName) nameEl.textContent = playerName;
         overlay.style.display = 'flex'; 
         
-        // يختفي بعد 3 ثواني
         setTimeout(() => {
             overlay.style.display = 'none';
         }, 3000);
@@ -537,14 +550,18 @@
       const modalBody = document.getElementById('modal-body');
       modalBody.innerHTML = `
         <div class="close-modal-x" id="close-qr-btn">✖</div>
-        <h2 style="font-family:'Lalezar'; font-size:30px; margin-bottom:10px;">${title}</h2>
-        <p style="font-size:16px; font-weight:bold; margin-bottom: 20px;">امسح الكود ضوئياً من الجوال للمزامنة الفورية</p>
-        <div style="background: white; padding: 12px; border-radius: 15px; display: inline-block; margin-bottom: 15px;">
-           <img class="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(urlStr)}" alt="QR Code">
+        <div class="question-wrapper">
+          <h2 style="font-family:'Lalezar'; font-size:30px; margin-bottom:10px;">${title}</h2>
+          <p style="font-size:16px; font-weight:bold; margin-bottom: 20px;">امسح الكود ضوئياً من الجوال للمزامنة الفورية</p>
+          <div style="background: white; padding: 12px; border-radius: 15px; display: inline-block; margin-bottom: 15px;">
+             <img class="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(urlStr)}" alt="QR Code">
+          </div>
+          <div style="font-size: 14px; color: #ffca28; margin-bottom: 15px; word-break: break-all; direction: ltr;">${urlStr}</div>
         </div>
-        <div style="font-size: 14px; color: #ffca28; margin-bottom: 15px; word-break: break-all; direction: ltr;">${urlStr}</div>
-        <div class="modal-bottom-row" style="justify-content: center;">
-            <button id="copy-link-btn" class="btn-half" style="max-width: 200px;"><span>🔗</span> نسخ الرابط</button>
+        <div class="action-wrapper">
+          <div class="modal-bottom-row" style="justify-content: center;">
+              <button id="copy-link-btn" class="btn-half" style="max-width: 200px;"><span>🔗</span> نسخ الرابط</button>
+          </div>
         </div>
       `;
       document.getElementById('modal').classList.remove('hidden');
@@ -649,10 +666,17 @@
                 
                 modalBody.innerHTML = `
                   <div class="close-modal-x" id="close-host-alert-btn">✖</div>
-                  <div class="modal-question" style="color: #ffca28; font-size: 26px; margin-top: 30px; margin-bottom: 15px;">السؤال مخصص للمقدم البشري</div>
-                  <p style="font-size: 18px; margin-bottom: 20px;">الرجاء قراءة السؤال واختيار.</p>
-                  <div class="modal-bottom-row" style="justify-content: center; margin-top: 20px;">
-                    <button class="btn-half" style="max-width: 150px;" id="ok-close-btn">إخفاء</button>
+                  <div class="modal-letter-wrapper">
+                    <div class="modal-letter-box">${cell.letter}</div>
+                  </div>
+                  <div class="question-wrapper">
+                    <div class="modal-question" style="color: #ffca28; font-size: 26px; margin-top: 15px; margin-bottom: 15px;">السؤال مخصص للمقدم البشري</div>
+                    <p style="font-size: 18px; margin-bottom: 20px;">الرجاء قراءة السؤال واختيار الإجابة من لوحة التحكم.</p>
+                  </div>
+                  <div class="action-wrapper">
+                    <div class="modal-bottom-row" style="justify-content: center; margin-top: 20px;">
+                      <button class="btn-half" style="max-width: 150px;" id="ok-close-btn">إخفاء</button>
+                    </div>
                   </div>
                 `;
                 document.getElementById('modal').classList.remove('hidden');
@@ -683,7 +707,6 @@
       buzzerTimerValue.classList.remove('timer-phase-other');
       sidebarBuzzerDisplay.classList.remove('hidden');
       
-      // إظهار الجرس العملاق في الشاشة تلقائياً مع اسم اللاعب
       showGiantBellEffect(data.winner.name);
     });
 
@@ -714,23 +737,32 @@
       const modalBody = document.getElementById('modal-body');
       const team1Name = document.getElementById('team1-name-display').textContent;
       const team2Name = document.getElementById('team2-name-display').textContent;
+      
+      // التعديل السحري: فصلنا الحرف عن مساحة السؤال المتمددة
       modalBody.innerHTML = `
-        <div class="modal-letter-box">${data.letter}</div>
-        <div class="modal-question">${data.question}</div>
-        <div id="answer-reveal-area" class="answer-reveal-area hidden">
-            <div class="answer-text">${data.answer}</div>
-            <div class="team-btns">
-              <button id="team1-btn" style="background-color: var(--team1-color); color: white;">${team1Name}</button>
-              <button id="team2-btn" style="background-color: var(--team2-color); color: white;">${team2Name}</button>
-            </div>
+        <div class="modal-letter-wrapper">
+          <div class="modal-letter-box">${data.letter}</div>
         </div>
-        <button id="toggle-answer-btn" class="btn-wide-toggle"><span>💡</span> <span id="toggle-text">إظهار الإجابة</span></button>
-        <div class="modal-bottom-row">
-            <button id="close-question-btn" class="btn-half"><span>✖</span> إغلاق</button>
-            <button id="change-question-btn" class="btn-half"><span>🔄</span> تغيير السؤال</button>
+        <div class="question-wrapper">
+          <div class="modal-question">${data.question}</div>
+        </div>
+        <div class="action-wrapper">
+          <div id="answer-reveal-area" class="answer-reveal-area hidden">
+              <div class="answer-text">${data.answer}</div>
+              <div class="team-btns">
+                <button id="team1-btn" style="background-color: var(--team1-color); color: white;">${team1Name}</button>
+                <button id="team2-btn" style="background-color: var(--team2-color); color: white;">${team2Name}</button>
+              </div>
+          </div>
+          <button id="toggle-answer-btn" class="btn-wide-toggle"><span>💡</span> <span id="toggle-text">إظهار الإجابة</span></button>
+          <div class="modal-bottom-row">
+              <button id="close-question-btn" class="btn-half"><span>✖</span> إغلاق</button>
+              <button id="change-question-btn" class="btn-half"><span>🔄</span> تغيير السؤال</button>
+          </div>
         </div>
       `;
       document.getElementById('modal').classList.remove('hidden');
+      
       let isAnswerShown = false;
       document.getElementById('toggle-answer-btn').addEventListener('click', () => {
           isAnswerShown = !isAnswerShown;
