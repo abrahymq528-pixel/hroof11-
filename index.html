@@ -248,45 +248,48 @@
         #celeb-team { font-size: 50px !important; margin: 10px 0 !important; }
         #celeb-title { font-size: 35px !important; }
 
-        /* -- التعديل السحري للنافذة (المودال) لتكون باليسار وما تغطي الخلايا والنتائج -- */
+        /* -- التعديل السحري المعدل: النافذة صارت يمين فوق الخلايا والنتائج باليسار مكشوفة -- */
         .modal {
             position: absolute !important;
-            width: 35% !important;
+            width: 65% !important; /* نغطي مساحة الخلايا فقط */
             height: 100% !important;
-            left: 0 !important;
+            right: 0 !important; /* نثبته يمين فوق الخلايا */
+            left: auto !important; /* نبعد عن مستطيل النتائج اللي باليسار */
             top: 0 !important;
-            background: transparent !important;
-            backdrop-filter: none !important;
-            pointer-events: none !important; /* السماح بالضغط على الخلايا اللي في اليمين */
+            background: rgba(0,0,0,0.7) !important;
+            backdrop-filter: blur(4px) !important;
+            pointer-events: auto !important; /* يمنع الضغط على الخلايا اللي بالخلفية */
         }
         .modal-content-custom {
-            pointer-events: auto !important; /* تفعيل الضغط داخل نافذة السؤال فقط */
+            pointer-events: auto !important;
             position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: calc(100% - 75px) !important; /* مساحة كافية للنتائج تحت عشان ما تتغطى */
+            top: 5% !important;
+            right: 5% !important;
+            left: auto !important;
+            width: 90% !important;
+            height: 90% !important;
             background: #472b75 !important;
-            border-radius: 0 0 15px 0 !important;
-            padding: 8px 4px !important;
-            border: 2px solid rgba(255,255,255,0.1) !important;
-            border-left: none !important; border-top: none !important;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.6) !important;
+            border-radius: 15px !important;
+            padding: 12px 8px !important;
+            border: 2px solid rgba(255,255,255,0.15) !important;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.8) !important;
             justify-content: flex-start !important;
+            display: flex !important;
+            flex-direction: column !important;
         }
-        .modal-letter-wrapper { margin-bottom: 5px !important; }
-        .modal-letter-box { width: 35px !important; height: 35px !important; font-size: 20px !important; padding-top: 3px !important; border-radius: 8px !important; }
-        .question-wrapper { margin-bottom: 5px !important; padding: 0 !important; }
-        .modal-question { font-size: 13px !important; margin-bottom: 5px !important; line-height: 1.3 !important; }
-        .close-modal-x { width: 22px !important; height: 22px !important; font-size: 14px !important; top: 4px !important; left: 4px !important; border-radius: 6px !important; }
-        .btn-wide-toggle { padding: 6px !important; font-size: 11px !important; border-radius: 8px !important; margin-bottom: 5px !important; }
-        .modal-bottom-row { flex-direction: column !important; gap: 4px !important; margin-top: 0 !important; }
-        .btn-half { padding: 6px !important; font-size: 11px !important; border-radius: 8px !important; width: 100% !important; justify-content: center !important;}
-        .answer-reveal-area { padding: 6px !important; margin-bottom: 5px !important; border-radius: 8px !important; }
-        .answer-text { font-size: 13px !important; margin-bottom: 5px !important; }
-        .team-btns { flex-direction: column !important; gap: 4px !important; }
-        .team-btns button { padding: 6px !important; font-size: 11px !important; border-radius: 6px !important; }
-        .qr-img { width: 70px !important; height: 70px !important; margin-bottom: 5px !important;}
+        .modal-letter-wrapper { margin-bottom: 5px !important; flex-shrink: 0 !important;}
+        .modal-letter-box { width: 45px !important; height: 45px !important; font-size: 24px !important; padding-top: 4px !important; border-radius: 10px !important; }
+        .question-wrapper { margin-bottom: 10px !important; padding: 0 5px !important; flex-grow: 1 !important; overflow-y: auto !important;}
+        .modal-question { font-size: 16px !important; margin-bottom: 5px !important; line-height: 1.4 !important; }
+        .close-modal-x { width: 30px !important; height: 30px !important; font-size: 18px !important; top: 10px !important; left: 10px !important; border-radius: 8px !important; }
+        .btn-wide-toggle { padding: 8px !important; font-size: 13px !important; border-radius: 10px !important; margin-bottom: 8px !important; }
+        .modal-bottom-row { flex-direction: row !important; gap: 8px !important; margin-top: auto !important; justify-content: center !important;}
+        .btn-half { padding: 8px !important; font-size: 13px !important; border-radius: 10px !important; width: 100% !important; justify-content: center !important;}
+        .answer-reveal-area { padding: 8px !important; margin-bottom: 8px !important; border-radius: 10px !important; }
+        .answer-text { font-size: 15px !important; margin-bottom: 8px !important; }
+        .team-btns { flex-direction: row !important; gap: 8px !important; }
+        .team-btns button { padding: 8px !important; font-size: 12px !important; border-radius: 8px !important; }
+        .qr-img { width: 80px !important; height: 80px !important; margin-bottom: 5px !important;}
     }
 
     /* --- التعديلات الخاصة بوضعية العرض الأفقي (للجوال والأجهزة الصغيرة) --- */
@@ -319,45 +322,48 @@
         #celeb-team { font-size: 50px !important; margin: 10px 0 !important; }
         #celeb-title { font-size: 35px !important; }
 
-        /* -- التعديل السحري للنافذة (المودال) لتكون باليسار وما تغطي الخلايا والنتائج -- */
+        /* -- التعديل السحري المعدل: النافذة صارت يمين فوق الخلايا والنتائج باليسار مكشوفة -- */
         .modal {
             position: absolute !important;
-            width: 35% !important;
+            width: 65% !important; /* نغطي مساحة الخلايا فقط */
             height: 100% !important;
-            left: 0 !important;
+            right: 0 !important; /* نثبته يمين فوق الخلايا */
+            left: auto !important; /* نبعد عن مستطيل النتائج اللي باليسار */
             top: 0 !important;
-            background: transparent !important;
-            backdrop-filter: none !important;
-            pointer-events: none !important;
+            background: rgba(0,0,0,0.7) !important;
+            backdrop-filter: blur(4px) !important;
+            pointer-events: auto !important; /* يمنع الضغط على الخلايا اللي بالخلفية */
         }
         .modal-content-custom {
             pointer-events: auto !important;
             position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: calc(100% - 75px) !important; /* مساحة كافية للنتائج تحت */
+            top: 5% !important;
+            right: 5% !important;
+            left: auto !important;
+            width: 90% !important;
+            height: 90% !important;
             background: #472b75 !important;
-            border-radius: 0 0 15px 0 !important;
-            padding: 8px 4px !important;
-            border: 2px solid rgba(255,255,255,0.1) !important;
-            border-left: none !important; border-top: none !important;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.6) !important;
+            border-radius: 15px !important;
+            padding: 12px 8px !important;
+            border: 2px solid rgba(255,255,255,0.15) !important;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.8) !important;
             justify-content: flex-start !important;
+            display: flex !important;
+            flex-direction: column !important;
         }
-        .modal-letter-wrapper { margin-bottom: 5px !important; }
-        .modal-letter-box { width: 35px !important; height: 35px !important; font-size: 20px !important; padding-top: 3px !important; border-radius: 8px !important; }
-        .question-wrapper { margin-bottom: 5px !important; padding: 0 !important; }
-        .modal-question { font-size: 13px !important; margin-bottom: 5px !important; line-height: 1.3 !important; }
-        .close-modal-x { width: 22px !important; height: 22px !important; font-size: 14px !important; top: 4px !important; left: 4px !important; border-radius: 6px !important; }
-        .btn-wide-toggle { padding: 6px !important; font-size: 11px !important; border-radius: 8px !important; margin-bottom: 5px !important; }
-        .modal-bottom-row { flex-direction: column !important; gap: 4px !important; margin-top: 0 !important; }
-        .btn-half { padding: 6px !important; font-size: 11px !important; border-radius: 8px !important; width: 100% !important; justify-content: center !important;}
-        .answer-reveal-area { padding: 6px !important; margin-bottom: 5px !important; border-radius: 8px !important; }
-        .answer-text { font-size: 13px !important; margin-bottom: 5px !important; }
-        .team-btns { flex-direction: column !important; gap: 4px !important; }
-        .team-btns button { padding: 6px !important; font-size: 11px !important; border-radius: 6px !important; }
-        .qr-img { width: 70px !important; height: 70px !important; margin-bottom: 5px !important;}
+        .modal-letter-wrapper { margin-bottom: 5px !important; flex-shrink: 0 !important;}
+        .modal-letter-box { width: 45px !important; height: 45px !important; font-size: 24px !important; padding-top: 4px !important; border-radius: 10px !important; }
+        .question-wrapper { margin-bottom: 10px !important; padding: 0 5px !important; flex-grow: 1 !important; overflow-y: auto !important;}
+        .modal-question { font-size: 16px !important; margin-bottom: 5px !important; line-height: 1.4 !important; }
+        .close-modal-x { width: 30px !important; height: 30px !important; font-size: 18px !important; top: 10px !important; left: 10px !important; border-radius: 8px !important; }
+        .btn-wide-toggle { padding: 8px !important; font-size: 13px !important; border-radius: 10px !important; margin-bottom: 8px !important; }
+        .modal-bottom-row { flex-direction: row !important; gap: 8px !important; margin-top: auto !important; justify-content: center !important;}
+        .btn-half { padding: 8px !important; font-size: 13px !important; border-radius: 10px !important; width: 100% !important; justify-content: center !important;}
+        .answer-reveal-area { padding: 8px !important; margin-bottom: 8px !important; border-radius: 10px !important; }
+        .answer-text { font-size: 15px !important; margin-bottom: 8px !important; }
+        .team-btns { flex-direction: row !important; gap: 8px !important; }
+        .team-btns button { padding: 8px !important; font-size: 12px !important; border-radius: 8px !important; }
+        .qr-img { width: 80px !important; height: 80px !important; margin-bottom: 5px !important;}
     }
   </style>
 </head>
