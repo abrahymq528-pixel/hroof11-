@@ -167,7 +167,6 @@ io.on('connection', (socket) => {
     const roomID = data.roomID || socket.roomID; 
     const room = rooms.get(roomID);
     
-    // التعديل: إزالة شرط room.gameState.questionActive ليعمل الجرس دائماً
     if (!room || room.gameState.buzzerLocked) return;
     
     room.gameState.buzzerLocked = true;
